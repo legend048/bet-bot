@@ -1,0 +1,17 @@
+.env*
+!.env.example
+temp/
+logs/
+__pycache__/
+*.pyc
+venv/
+env/
+.venv/
+.publish/
+intercept/
+*.log
+*.wav
+*.mp3
+node_modules/
+.DS_Store
+ffmpeg.exe

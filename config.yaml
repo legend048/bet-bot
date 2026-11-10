@@ -1,0 +1,89 @@
+# ─── Browser Settings ───────────────────────────────────────────────
+browser:
+  headless: false          # true = run invisibly for max speed
+  slow_mo: 0               # milliseconds between actions (0 = max speed)
+  base_url: "https://corporate.bharatenglish.org"
+  timeout: 30000           # max wait time for elements in milliseconds
+  virtual_mic_file: "./temp/mic_input.wav"   # WAV fed as the fake microphone for speaking
+
+run:
+  skills: [speaking]
+  max_units: 2
+  max_lessons: 0          # 0 = all unfinished lessons in the assigned topics
+  skip_videos: true       # seek to the final second so Practice unlocks quickly
+  video_timeout: 900     # seconds; let each prerequisite video finish normally
+  learn_seconds: 10
+
+# ─── Groq AI Model Configuration ────────────────────────────────────
+ai:
+  # Verified against this account's Groq model list.
+  chat_model: "openai/gpt-oss-120b"
+
+  # Audio transcription model (FREE — whisper-large-v3 is more accurate)
+  stt_model: "whisper-large-v3"
+
+  # Text-to-speech model
+  tts_model: "offline"               # Windows SAPI; Edge service currently returns HTTP 403
+  tts_voice: "en-IN-NeerjaNeural"      # Microsoft Edge TTS Indian Female Voice
+
+  # Controls how creative/random the LLM answers are (0.0 = focused, 1.0 = creative)
+  temperature: 0.3
+  max_tokens: 1000
+
+# ─── UI Selectors ───────────────────────────────────────────────────
+selectors:
+  login:
+    username_input: "#username"
+    password_input: "#password"
+    signin_button: "button:has-text('Sign in')"
+    error_message: ".error-message, .alert-danger"
+
+  navigation:
+    sidebar_home: "a:has-text('Home')"
+    sidebar_ai_bet: "a:has-text('AI Bet')"
+    sidebar_ai_fluentedge: "a[href='#/adaptive-learning'], a:has-text('AI FluentEdge')"
+    sidebar_reports: "a:has-text('Reports')"
+
+  fluentedge:
+    listening_start: "a[href='#/adaptive-learning/skill/Listening'], h2:has-text('Listening') + p + button"
+    speaking_start: "a[href='#/adaptive-learning/skill/Speaking'], h2:has-text('Speaking') + p + button"
+    reading_start: "a[href='#/adaptive-learning/skill/Reading'], h2:has-text('Reading') + p + button"
+    writing_start: "a[href='#/adaptive-learning/skill/Writing'], h2:has-text('Writing') + p + button"
+
+  levels:
+    start_button: "button:has-text('Start')"
+    revisit_button: "button:has-text('Revisit')"
+
+  units:
+    start_learning: "button:has-text('Start Learning')"
+    review: "button:has-text('Review')"
+    enter_unit: "button:has-text('Start Learning'), button:has-text('Continue Learning'), button:has-text('Resume')"
+    accessible_unit: "button:has-text('Start Learning'), button:has-text('Continue Learning'), button:has-text('Resume'), button:has-text('Review')"
+
+  lessons:
+    practice_button: "button:has-text('Practice')"
+    learn_button: "button:has-text('Learn')"
+    retry_button: "button:has-text('Retry')"
+    start_test_button: "button:has-text('Retry'), button:has-text('Practice')"
+
+  exam:
+    textarea: "textarea[placeholder*='Start writing']"
+    mic_button: "button[aria-label='Start recording'], button[aria-label='Record'], button[hint='Record'], button.btn-circle"
+    check_button: "button:has-text('Check')"
+    continue_button: "button:has-text('Continue'), button:has-text('Next')"
+    submit_button: "button:text-is('Submit')"
+    close_button: "button[aria-label='Close practice'], button[hint='Close practice']"
+    exit_button: "button:has-text('Exit')"
+    play_audio: "button[aria-label='Play audio'], button[hint='Play audio']"
+    option_selectors:
+      - "div.cursor-pointer.shadow-md"
+      - ".option"
+      - "div[role='button']"
+      - ".choice"
+      - "li.answer"
+      - "button.option-btn"
+
+# ─── Paths ──────────────────────────────────────────────────────────
+paths:
+  temp_audio_dir: "./temp"
+  log_file: "./logs/bot.log"
